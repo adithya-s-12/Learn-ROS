@@ -1,0 +1,56 @@
+1. getting gazebo world with bot:
+	make a workspace and git clone the robot( differential drive bot in this case) into the workspace.
+	now add the camera plugin from gazebo_ros plugins
+	now git clone the world (aws-robomaker-bookstore-world) in a seperate folder.
+	add the contents of the file to ~/.gazebo
+	load gazebo and go to insert>add path> search your models folder and add it.
+	now create the world and save it in your worlds folder
+ 	now go to ur launch file
+	change the arg world to path/to/your/your_world.world
+	add arg world_name in include with value as $(arg world)
+	
+	issues faced:
+	make sure that the files of all model are present at that correct location and path.
+	make sure to use correct path and names in launch file.
+	
+2.training yolo or desired cnn model to your custom dataset:
+	create a folder of images of the objects to be tracked.
+	upload to roboflow and annotate them.
+	use google colab or kaggle to train your yolo model to the custom dataset. roboflow provides the code to export.
+	paste code and then run the required functions like train, predict, etc.
+	save the model with the best weights in runs>detect>weights>best.pt
+	download the file and load it. use it to track the objects.
+	
+	issues faced:
+	no major issues were faced.
+	
+3.using the model on ros_camera:
+	subscribe to the topic that is publishing the image.
+	use cvbridge package to get the video feed. 
+	run the model and get the bounding box co-ordinates, classes and scores.
+	annotate the image and publish it to a new topic.
+	
+	issues faced:
+	cannot visualize the new topic in rviz but can do it using rqt-image-view.
+	
+4.using bert for nlp:
+	use speech_recognition, sounddevice and soundfile to convert audio into text.
+	train the bert model to your custom dataset and use this model to classify the text.
+	to train bert make a custom dataset of the inputs and the desired outputs and save them in a csv file.
+	load the file and make sure the classes or outputs are ints. if not add seperate columns with an int value for each unique label in a 		class. multiple classes can have same int values
+	now use scikit-learn to split the dataset into train and test datasets.
+	use tokenizer to encode the datasets into format that bert can understand.
+	now train the bert model to your custom dataset using tensorflow.
+	
+	issues faced:
+	USE TENSORFLOW FOR TRAINING INSTEAD OF PYTORCH
+	make sure to convert the labels in id and use the id as you cannot directly use the label in string form.
+	
+5. moving the robot:
+	write a code to complete the action given.
+	
+	issues faced:
+	having difficulty getting the distance using only 1 camera.
+	
+	
+	 
